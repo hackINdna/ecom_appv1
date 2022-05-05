@@ -7,11 +7,32 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'JewelAR',
+        title: Column(
+          children: [
+            Text(
+              'JewelAR'
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 5.0, 0,0),
+              //color: Colors.white,
+              width: 250,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                ),
+              ),
+            ),
+          ],
         ),
-        centerTitle: true,
+        toolbarHeight: 90,
+        //centerTitle: true,
       ),
+      drawer: Drawer(),
       body: Text(
         'Content of Main Menu',
       ),
