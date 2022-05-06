@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:ecom_appv1/pages/drawer.dart';
+import 'package:ecom_appv1/pages/catalogItem.dart';
+import 'package:ecom_appv1/pages/catalogData.dart';
 
 class MainMenu extends StatelessWidget {
 
   static const String routeName = '/main-menu';
   @override
   Widget build(BuildContext context) {
+
+    final dummyList = List.generate(20, (index) => Dummy_Data[0]);
+
     return Scaffold(
       appBar: AppBar(
         title: Column(
@@ -34,9 +39,13 @@ class MainMenu extends StatelessWidget {
         //centerTitle: true,
       ),
       drawer: MyDrawer(),
-      body: Text(
-        'Content of Main Menu',
+      body: ListView.builder(
+        itemCount: dummyList.length,
+        itemBuilder: (context, index){
+          return CatalogItem(items: dummyList[index]);
+        },
       ),
+      backgroundColor: Colors.grey[200],
     );
   }
 }

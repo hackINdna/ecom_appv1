@@ -29,6 +29,7 @@ class MyDrawer extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                currentAccountPictureSize: Size.fromRadius(45.0),
                 currentAccountPicture: CircleAvatar(
                   backgroundImage: AssetImage('assets/image/1.jpg'),
                 ),
