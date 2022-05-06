@@ -9,16 +9,27 @@ class Item{
   final String imageUrl;
 
   const Item({required this.id, required this.name, required this.desc, required this.price, required this.color, required this.imageUrl});
+
+  factory Item.fromMap(Map<String, dynamic> map){
+    return Item(
+      id: map['id'],
+      name: map['name'],
+      desc: map['desc'],
+      price: map['price'],
+      color: map['color'],
+      imageUrl: map['image'],
+
+    );
+  }
+
+  toMap() => {
+    'id': id,
+    'name': name,
+    'desc': desc,
+    'price': price,
+    'color': color,
+    'image': imageUrl,
+  };
   
 }
 
-const Dummy_Data = const [
-  Item(
-    id: 1,
-    name: "iPhone 12 Pro",
-    desc: "Apple iPhone 12th generation",
-    price: 999,
-    color: "#33505a",
-    imageUrl: "https://pngimg.com/uploads/iphone_12/iphone_12_PNG19.png"
-  ),
-];

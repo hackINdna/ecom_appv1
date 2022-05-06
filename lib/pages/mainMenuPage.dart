@@ -1,15 +1,45 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ecom_appv1/pages/drawer.dart';
 import 'package:ecom_appv1/pages/catalogItem.dart';
 import 'package:ecom_appv1/pages/catalogData.dart';
+import 'package:flutter/services.dart';
 
-class MainMenu extends StatelessWidget {
+class MainMenu extends StatefulWidget {
 
   static const String routeName = '/main-menu';
+  
+
+  @override
+  State<MainMenu> createState() => _MainMenuState();
+}
+
+class _MainMenuState extends State<MainMenu> {
+
+  static List<Item>? lists;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+  
+  loadData() async {
+    //await Future.delayed(Duration(seconds: 2));
+    final catalogJson = await rootBundle.loadString('assets/files/catalog.json');
+    final decodedData = jsonDecode(catalogJson);
+    final productData = decodedData['products'];
+    lists = List.from(productData).map<Item>((items){
+      return Item.fromMap(items);
+    }).toList();
+    setState((){});
+  }
+
+
   @override
   Widget build(BuildContext context) {
-
-    final dummyList = List.generate(20, (index) => Dummy_Data[0]);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,11 +69,16 @@ class MainMenu extends StatelessWidget {
         //centerTitle: true,
       ),
       drawer: MyDrawer(),
-      body: ListView.builder(
-        itemCount: dummyList.length,
-        itemBuilder: (context, index){
-          return CatalogItem(items: dummyList[index]);
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: (lists != null && lists!.isNotEmpty) ?ListView.builder(
+          itemCount: lists!.length,
+          itemBuilder: (context, index){
+            return CatalogItem(items: lists![index]);
+          },
+        ) : Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
       backgroundColor: Colors.grey[200],
     );

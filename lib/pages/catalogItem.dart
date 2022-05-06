@@ -10,10 +10,6 @@ class CatalogItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(
-        vertical: 5.0,
-        horizontal: 20.0,
-      ),
       child: ListTile(
         onTap: (){},
         leading: Image.network(items.imageUrl),
