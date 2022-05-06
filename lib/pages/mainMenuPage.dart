@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ecom_appv1/pages/drawer.dart';
 
 class MainMenu extends StatelessWidget {
 
@@ -32,7 +33,7 @@ class MainMenu extends StatelessWidget {
         toolbarHeight: 90,
         //centerTitle: true,
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
       body: Text(
         'Content of Main Menu',
       ),
