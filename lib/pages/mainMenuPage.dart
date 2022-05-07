@@ -27,7 +27,7 @@ class _MainMenuState extends State<MainMenu> {
   }
   
   loadData() async {
-    //await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
     final catalogJson = await rootBundle.loadString('assets/files/catalog.json');
     final decodedData = jsonDecode(catalogJson);
     final productData = decodedData['products'];
@@ -71,14 +71,56 @@ class _MainMenuState extends State<MainMenu> {
       drawer: MyDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: (lists != null && lists!.isNotEmpty) ?ListView.builder(
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+          ),
           itemCount: lists!.length,
           itemBuilder: (context, index){
-            return CatalogItem(items: lists![index]);
+            var itemss = lists![index];
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: GridTile(
+                header: Container(
+                  child: Text(
+                    itemss.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.orangeAccent,
+                  ),
+                ),
+                footer: Container(
+                  child: Text(
+                    itemss.price.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                  ),
+                ),
+                child: Image.network(itemss.imageUrl),
+              ),
+            );
           },
-        ) : Center(
-          child: CircularProgressIndicator(),
         ),
+        // child: (lists != null && lists!.isNotEmpty) ? ListView.builder(
+        //   itemCount: lists!.length,
+        //   itemBuilder: (context, index){
+        //     return CatalogItem(items: lists![index]);
+        //   },
+        // ) : Center(
+        //   child: CircularProgressIndicator(),
+        // ),
       ),
       backgroundColor: Colors.grey[200],
     );
